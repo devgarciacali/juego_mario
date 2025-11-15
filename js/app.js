@@ -1,7 +1,8 @@
+// Configuracion del juego
 const w = 800;
 const h = 400;
 const world = 4000;
-
+// Configuración de Phaser
 const config = {
     type: Phaser.AUTO, // Phaser elige automáticamente entre WebGL o Canvas según el navegador
     parent: 'juego',
@@ -17,10 +18,12 @@ const config = {
     scene: { preload, create, update }
 };
 
+// variables globales
 let player, plataformas, teclas, monedas, enemigos;
+// puntos
 let puntos = 0;
 let textPuntos;
-
+// vidas
 let vidas = 2;
 let textoVidas;
 
@@ -38,7 +41,7 @@ let plataformasMoviles, pinchos, lava;
 
 
 new Phaser.Game(config);
-
+// --- FUNCIONES PRINCIPALES ---
 function preload() {
     const g = this.add.graphics();
     // jugador
@@ -104,7 +107,10 @@ function create() {
         plataformas.create(x, h - 16, 'plataforma').setOrigin(0).refreshBody();
     }
 
-    // Plataformas elevadas
+    // otra forma Plataformas elevadas (crear for parta que sea más eficiente)
+    // for(let x = 0; x < world; x += 400){
+    //     plataformas.create(250 + x, h - 150, 'plataforma').setOrigin(0).refreshBody();
+    // }
 
     plataformas.create(180, h - 120, 'plataforma').setOrigin(0).refreshBody();
     plataformas.create(400, h - 200, 'plataforma').setOrigin(0).refreshBody();
@@ -160,11 +166,14 @@ function create() {
     const cam = this.cameras.main;
     cam.startFollow(player, true, 0.08, 0.08);
 
+    // texto de puntos
+
     textPuntos = this.add.text(16, 16, "Puntos: 0", {
         fontSize: '20px',
         fill: '#fff',
         fontFamily: 'Arial'
     });
+
     textPuntos.setScrollFactor(0);
     // texto de vidas
     textoVidas = this.add.text(650, 16, `Vidas: ${vidas}`, {
