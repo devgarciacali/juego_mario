@@ -135,6 +135,7 @@ function create() {
     //lava
     lava = this.physics.add.staticGroup();
     lava.create(200, h - 17, 'lava').setOrigin(0, 1).setScale(4, 1).refreshBody();
+    lava.create(200, h - 2, 'lava').setOrigin(0, 1).setScale(4, 1).refreshBody();
     lava.create(200, h - 1, 'lava').setOrigin(0, 1).setScale(4, 1).refreshBody();
     //crear enemigo en las tres plataformas y dar rango de movimiento sobre ellas
     crearEnemigo(this, 210, h - 130, 180, 240);
