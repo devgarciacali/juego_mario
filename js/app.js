@@ -24,6 +24,10 @@ let textPuntos;
 let vidas = 2;
 let textoVidas;
 
+// texto de monedas
+let textoMonedas;
+let coins = 0;
+
 // fondo
 let fondo;
 // sonidos
@@ -156,18 +160,26 @@ function create() {
     cam.startFollow(player, true, 0.08, 0.08);
 
     textPuntos = this.add.text(16, 16, "Puntos: 0", {
-        fontSize: '24px',
+        fontSize: '20px',
         fill: '#fff',
         fontFamily: 'Arial'
     });
     textPuntos.setScrollFactor(0);
     // texto de vidas
-    textoVidas = this.add.text(650, 16, `monedas: ${vidas}`, {
-        fontSize: '24px',
+    textoVidas = this.add.text(650, 16, `Vidas: ${vidas}`, {
+        fontSize: '20px',
         fill: '#fff',
         fontFamily: 'Arial'
     });
     textoVidas.setScrollFactor(0);
+    // texto de las monedas
+    textoMonedas = this.add.text(16, 38, `monedas: ${coins}`, {
+        fontSize: '20px',
+        fill: '#fff',
+        fontFamily: 'Arial'
+    });
+    textoMonedas.setScrollFactor(0);
+
 }
 
 function update() {
@@ -241,10 +253,13 @@ function crearEnemigo(scene, x, y, minX, maxX) {
     return ene;
 }
 
-function tomarMoneda(player, moneda) {
-    moneda.disableBody(true, true);
-    vidas += 10;
-    textoVidas.setText(`monedas: ${vidas}`);
+
+
+function tomarMoneda(player, monedas) {
+    console.log(player);
+    monedas.disableBody(true, true);
+    coins += 10;
+    textoMonedas.setText(`monedas: ${coins}`);
     // reproducir sonido
     sfx.coin.play();
 }
@@ -273,7 +288,7 @@ function tocarEnemigo(player, enemigo) {
         blink.remove();
     })
     vidas--;
-    textoVidas.setText(`monedas: ${vidas}`);
+    textoVidas.setText(`Vidas: ${vidas}`);
 }
 
 function crearPlataformaMovH(scene, x, y, minX, maxX, speed) {
@@ -321,7 +336,7 @@ function tocarPeligro(player, peligro){
         blink.remove();
     })
     vidas--;
-    textoVidas.setText(`monedas: ${vidas}`);
+    textoVidas.setText(`Vidas: ${vidas}`);
 }
 
 function tocarPincho(player, pincho){
@@ -343,8 +358,5 @@ function tocarPincho(player, pincho){
         blink.remove();
     })
     vidas--;
-    textoVidas.setText(`monedas: ${vidas}`);
+    textoVidas.setText(`Vidas: ${vidas}`);
 }
-//dibujar pinchos y colocarlos arriba de las plataformas
-// mejorar la lava
-//
