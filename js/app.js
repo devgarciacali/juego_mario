@@ -172,6 +172,8 @@ function create() {
         fontFamily: 'Arial'
     });
     textoVidas.setScrollFactor(0);
+    //corregir que no pase de cero las vidas
+    
     // texto de las monedas
     textoMonedas = this.add.text(16, 38, `monedas: ${coins}`, {
         fontSize: '20px',
@@ -236,6 +238,9 @@ function update() {
         ene.setVelocityX(ene.direction * ene.speed);
 
     });
+    if(vidas < 0){
+        textoVidas.setText(`Vidas: 0`);
+    }    
 }
 
 // --- FUNCIONES AUXILIARES ---
@@ -290,9 +295,9 @@ function tocarEnemigo(player, enemigo) {
             player.visible = true;
             blink.remove();
         })
+        vidas--;
+        textoVidas.setText(`Vidas: ${vidas}`);
     }
-    vidas--;
-    textoVidas.setText(`Vidas: ${vidas}`);
 }
 
 function crearPlataformaMovH(scene, x, y, minX, maxX, speed) {
