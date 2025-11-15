@@ -50,7 +50,7 @@ function preload() {
     // Enemigo (tortuga)
     this.load.image('enemigo', 'img/tortuga.png');
     // Fondo (nubes)
-    this.load.image('fondo', 'img/nubes.jpeg');
+    this.load.image('fondo', 'img/nubes.jpg');
     // sonidos esepciales de coins
     this.load.audio('coin', 'sfx/coin.wav');
     // sonido de salto
