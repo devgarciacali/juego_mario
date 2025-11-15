@@ -134,8 +134,8 @@ function create() {
     pinchos.create(580, h - 103, 'pincho').setOrigin(0).refreshBody();
     //lava
     lava = this.physics.add.staticGroup();
-    lava.create(200, h - 17, 'lava').setOrigin(0,1).setScale(4, 1).refreshBody();
-    lava.create(200, h - 1, 'lava').setOrigin(0,1).setScale(4, 1).refreshBody();
+    lava.create(200, h - 17, 'lava').setOrigin(0, 1).setScale(4, 1).refreshBody();
+    lava.create(200, h - 1, 'lava').setOrigin(0, 1).setScale(4, 1).refreshBody();
     //crear enemigo en las tres plataformas y dar rango de movimiento sobre ellas
     crearEnemigo(this, 210, h - 130, 180, 240);
     crearEnemigo(this, 420, h - 230, 410, 450);
@@ -202,7 +202,7 @@ function update() {
         // reproducir sonido
         sfx.jump.play();
         player.setVelocityY(-500);
-    } 
+    }
     plataformasMoviles.children.iterate(p => {
         if (!p) {
             return;
@@ -222,7 +222,7 @@ function update() {
             }
             p.setVelocityY(p.dir * p.speed);
         }
-        });
+    });
 
     // Movimiento automático de enemigos
     enemigos.children.iterate(ene => {
@@ -266,27 +266,31 @@ function tomarMoneda(player, monedas) {
 
 function tocarEnemigo(player, enemigo) {
     if (player.body.velocity.y > 120) {
+        const dir = player.x < enemigo.x ? -1 : 1;
+        player.setVelocityX(-dir * 200);
+        player.setVelocityY(-300);
         enemigo.disableBody(true, true);
         puntos += 50;
         textPuntos.setText(`Puntos: ${puntos}`);
+    } else {
+        const dir = player.x < enemigo.x ? -1 : 1;
+        player.setVelocityX(-dir * 200);
+        player.setVelocityY(-300);
+        player.inv = true;
+        player.setTint(0xff8080);
+        //parpadeo visual
+        const blink = this.time.addEvent({
+            delay: 100,
+            callback: () => player.visible = (!player.visible),
+            repeat: 5
+        });
+        this.time.delayedCall(1000, () => {
+            player.clearTint(); 1
+            player.inv = false;
+            player.visible = true;
+            blink.remove();
+        })
     }
-    const dir = player.x < enemigo.x ? -1 : 1;
-    player.setVelocityX(-dir * 200);
-    player.setVelocityY(-300);
-    player.inv = true;
-    player.setTint(0xff8080);
-    //parpadeo visual
-    const blink = this.time.addEvent({
-        delay: 100,
-        callback: () => player.visible = (!player.visible),
-        repeat: 5
-    });
-    this.time.delayedCall(1000, () => {
-        player.clearTint();1
-        player.inv = false;
-        player.visible = true;
-        blink.remove();
-    })
     vidas--;
     textoVidas.setText(`Vidas: ${vidas}`);
 }
@@ -317,7 +321,7 @@ function crearPlataformaMovV(scene, x, y, minY, maxY, speed) {
     plataformasMoviles.add(p);
     return p;
 }
-function tocarPeligro(player, peligro){
+function tocarPeligro(player, peligro) {
     const dir = player.x < peligro.x ? -1 : 1;
     player.setVelocityX(-dir * 200);
     player.setVelocityY(-300);
@@ -339,7 +343,7 @@ function tocarPeligro(player, peligro){
     textoVidas.setText(`Vidas: ${vidas}`);
 }
 
-function tocarPincho(player, pincho){
+function tocarPincho(player, pincho) {
     const dir = player.x < pincho.x ? -1 : 1;
     player.setVelocityX(-dir * 200);
     player.setVelocityY(-300);
