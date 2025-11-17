@@ -198,6 +198,7 @@ function create() {
         fontFamily: 'Arial'
     });
     textoMonedas.setScrollFactor(0);
+    
 
 }
 
@@ -255,9 +256,17 @@ function update() {
         ene.setVelocityX(ene.direction * ene.speed);
 
     });
+    // Revisar si el jugador cae al vacío
+    if(player.y >= 466){
+        vidas--;
+        textoVidas.setText(`Vidas: ${vidas}`);
+        player.setPosition(80, h - 200);
+    }
+
     if(vidas < 0){
         textoVidas.setText(`Vidas: 0`);
     }    
+    
 }
 
 // --- FUNCIONES AUXILIARES ---
