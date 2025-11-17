@@ -1,6 +1,6 @@
 // Configuracion del juego
 const w = 800;
-const h = 400;
+const h = 480;
 const world = 4000;
 // Configuración de Phaser
 const config = {
@@ -38,6 +38,7 @@ let sfx = {};
 let bgm;
 // plataformas moviles
 let plataformasMoviles, pinchos, lava;
+const huecos = [[0, 240], [400, 240]];
 
 
 new Phaser.Game(config);
@@ -104,7 +105,12 @@ function create() {
 
     // Suelo completo
     for (let x = 0; x < world; x += 64) {
-        plataformas.create(x, h - 32, 'plataforma').setOrigin(0).refreshBody();
+        if(estaHueco(x, huecos)){
+            continue // salta crteacion si cae al hueco
+        }
+        plataformas.create(x, h - 32, 'plataforma')
+        .setOrigin(0)
+        .refreshBody();
         plataformas.create(x, h - 16, 'plataforma').setOrigin(0).refreshBody();
     }
 
@@ -379,6 +385,17 @@ function tocarPincho(player, pincho) {
     })
     vidas--;
     textoVidas.setText(`Vidas: ${vidas}`);
+}
+
+// funcion para huecos
+
+function estaHueco (x, rangos) {
+    for (const[ini, ancho] of rangos) {
+        if(x >= ini && x < ini + ancho){
+            return true;
+        }
+    }
+    return false;
 }
 
 // // Funcion para reiniciar el nivel 
