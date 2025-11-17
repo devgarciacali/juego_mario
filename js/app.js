@@ -74,7 +74,8 @@ function create() {
     // Crear jugador
     player = this.physics.add.sprite(80, h - 200, 'jugador').setCollideWorldBounds(true);
     player.body.setSize(28, 28);
-    player.inv = false; // bandera de invencibilidad
+    // Bandera de invencibilidad
+    player.inv = false; 
 
     // Crear plataformas
     plataformas = this.physics.add.staticGroup();
@@ -378,4 +379,10 @@ function tocarPincho(player, pincho) {
     })
     vidas--;
     textoVidas.setText(`Vidas: ${vidas}`);
+}
+
+// Funcion para reiniciar el nivel 
+function reiniciarNivel() {
+    //reiniciar la escena actual
+    
 }
