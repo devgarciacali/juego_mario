@@ -39,8 +39,8 @@ let bgm;
 // plataformas moviles
 let plataformasMoviles, pinchos, lava;
 const huecos = [[0, 240], [400, 240]];
-
-
+// plataformas fragiles
+let plataformasFragiles;
 new Phaser.Game(config);
 // --- FUNCIONES PRINCIPALES ---
 function preload() {
@@ -49,6 +49,8 @@ function preload() {
     this.load.image('jugador', 'img/mario.png');
     // Plataforma (café)
     this.load.image('plataforma', 'img/plataforma.png');
+    // Plataforma frágil (café claro) 
+    this.load.image('plataformaFragil', 'img/plataforma.png'); 
     // Moneda (amarilla)
     this.load.image('moneda', 'img/moneda.png');
     // Enemigo (tortuga)
@@ -125,6 +127,9 @@ function create() {
     plataformas.create(580, h - 80, 'plataforma').setOrigin(0).refreshBody();
     plataformas.create(160, h - 230, 'plataforma').setOrigin(0).refreshBody();
 
+    plataformasFragiles = this.physics.add.staticGroup({allowGravity: false, immovable: true});
+    CrearPlataformaFragil(this, 350, h - 80, {tipo: 'fragil', hp: 1, delay: 400});
+
     // Teclas de movimiento
     teclas = this.input.keyboard.createCursorKeys();
 
@@ -169,6 +174,7 @@ function create() {
     });
     this.physics.add.overlap(player, pinchos, tocarPincho, null, this);
     this.physics.add.overlap(player, lava, tocarPeligro, null, this);
+    this.physics.add.collider(player, plataformasFragiles, onPisandoPlataformaFragil, null, this);
     // Cámara sigue al jugador
     const cam = this.cameras.main;
     cam.startFollow(player, true, 0.08, 0.08);
@@ -405,6 +411,20 @@ function estaHueco (x, rangos) {
         }
     }
     return false;
+}
+
+function CrearPlataformaFragil(scene, x, y, opts={}) {
+    const p = scene.physics.add.image(x, y, 'plataformaFragil').setOrigin(0);
+    p.setImmovable(true);
+    p.body.allowGravity = false;
+    p.tipo = opts.tipo || 'fragil'; // fragil o temporal
+    p.hp = opts.hp ?? 1; // cuentas pisadas soporta
+    p.delay = opts.delay ?? 400; // tiempo antes de desaparecer
+    p.broken = false;
+    p.breakTimer = null;
+    p.shakeTween = null;
+    plataformasFragiles.add(p);
+    return p;
 }
 
 // // Funcion para reiniciar el nivel 
