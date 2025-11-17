@@ -381,8 +381,8 @@ function tocarPincho(player, pincho) {
     textoVidas.setText(`Vidas: ${vidas}`);
 }
 
-// Funcion para reiniciar el nivel 
-function reiniciarNivel() {
-    //reiniciar la escena actual
+// // Funcion para reiniciar el nivel 
+// function reiniciarNivel() {
+//     //reiniciar la escena actual
     
-}
+// }
