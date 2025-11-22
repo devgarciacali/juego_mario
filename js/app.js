@@ -69,6 +69,7 @@ function preload() {
     this.load.image('plataformaFrag', 'img/plataformafrag.png');
     // lavas
     this.load.image('lava', 'img/lava.png');
+    // pinchos
     this.load.image('pincho', 'img/pinchos.png');
 }
 
@@ -129,7 +130,8 @@ function create() {
     plataformas.create(580, h - 260, 'plataforma').setOrigin(0).refreshBody();
     plataformas.create(580, h - 80, 'plataforma').setOrigin(0).refreshBody();
     plataformas.create(160, h - 230, 'plataforma').setOrigin(0).refreshBody();
-
+    
+    // plataformas moviles
     plataformasFragiles = this.physics.add.staticGroup({allowGravity: false, immovable: true});
     CrearPlataformaFragil(this, 350, h - 80, {tipo: 'fragil', hp: 1, delay: 400});
 
@@ -143,7 +145,7 @@ function create() {
     monedas.create(610, h - 280, 'moneda');
     monedas.create(630, h - 100, 'moneda');
     monedas.create(210, h - 246, 'moneda');
-
+    // enemigos
     enemigos = this.physics.add.group();
     // pinchos
     pinchos = this.physics.add.staticGroup();
@@ -296,7 +298,7 @@ function crearEnemigo(scene, x, y, minX, maxX) {
 
 
 function tomarMoneda(player, monedas) {
-    console.log(player);
+    // console.log(player);
     monedas.disableBody(true, true);
     coins += 10;
     textoMonedas.setText(`monedas: ${coins}`);
