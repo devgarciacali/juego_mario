@@ -64,6 +64,9 @@ function preload() {
     // sonido de fondo
     this.load.audio('bgm', 'sfx/bgm.wav');
     // plataformas moviles
+    this.load.image('plataformaMovil', 'img/plataformaMov.png');
+    // plataformas fragiles
+    this.load.image('plataformaFrag', 'img/plataformafrag.png');
     // lavas
     this.load.image('lava', 'img/lava.png');
     this.load.image('pincho', 'img/pinchos.png');
@@ -174,7 +177,7 @@ function create() {
     });
     this.physics.add.overlap(player, pinchos, tocarPincho, null, this);
     this.physics.add.overlap(player, lava, tocarPeligro, null, this);
-    this.physics.add.collider(player, plataformasFragiles, onPisandoPlataformaFragil, null, this);
+    this.physics.add.collider(player, plataformasFragiles, CrearPlataformaFragil, null, this);
     // Cámara sigue al jugador
     const cam = this.cameras.main;
     cam.startFollow(player, true, 0.08, 0.08);
@@ -333,7 +336,7 @@ function tocarEnemigo(player, enemigo) {
 }
 
 function crearPlataformaMovH(scene, x, y, minX, maxX, speed) {
-    const p = scene.physics.add.image(x, y, 'plataforma');
+    const p = scene.physics.add.image(x, y, 'plataformaMovil');
     p.setImmovable(true);
     p.body.allowGravity = false;
     p.axis = 'x';
@@ -346,7 +349,7 @@ function crearPlataformaMovH(scene, x, y, minX, maxX, speed) {
     return p;
 }
 function crearPlataformaMovV(scene, x, y, minY, maxY, speed) {
-    const p = scene.physics.add.image(x, y, 'plataforma');
+    const p = scene.physics.add.image(x, y, 'plataformaMovil');
     p.setImmovable(true);
     p.body.allowGravity = false;
     p.axis = 'y';
@@ -414,7 +417,7 @@ function estaHueco (x, rangos) {
 }
 
 function CrearPlataformaFragil(scene, x, y, opts={}) {
-    const p = scene.physics.add.image(x, y, 'plataformaFragil').setOrigin(0);
+    const p = scene.physics.add.image(x, y, 'plataformaFrag').setOrigin(0);
     p.setImmovable(true);
     p.body.allowGravity = false;
     p.tipo = opts.tipo || 'fragil'; // fragil o temporal
