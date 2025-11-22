@@ -431,9 +431,3 @@ function CrearPlataformaFragil(scene, x, y, opts={}) {
     plataformasFragiles.add(p);
     return p;
 }
-
-// // Funcion para reiniciar el nivel 
-// function reiniciarNivel() {
-//     //reiniciar la escena actual
-    
-// }
